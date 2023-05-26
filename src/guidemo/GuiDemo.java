@@ -58,14 +58,13 @@ public class GuiDemo extends JFrame{
 		IconSupport iconSupport = new IconSupport(drawPanel);
 		content.add( iconSupport.createToolbar(true), BorderLayout.SOUTH );
 		
-		// Create the menu bar and add it to the frame.  The TextMenu is defined by
-		// a separate class.  The other menus are created in this class.
-		
+		// Create the menu bar and add it to the frame.
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(makeFileMenu());
 		textMenu = new TextMenu(drawPanel);
-		menuBar.add(textMenu );
-		menuBar.add( makeBackgroundMenu() );
+		menuBar.add(textMenu);
+		menuBar.add(makeBackgroundMenu());
+		menuBar.add(iconSupport.createMenu()); // Add the created menu here
 		setJMenuBar(menuBar);
 		
 		// Set the size of the window and its position.
