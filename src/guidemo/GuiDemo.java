@@ -58,6 +58,10 @@ public class GuiDemo extends JFrame{
 		IconSupport iconSupport = new IconSupport(drawPanel);
 		content.add( iconSupport.createToolbar(true), BorderLayout.SOUTH );
 		
+		// Create the background toolbar and add it to the NORTH position
+		JToolBar backgroundToolbar = makeToolbar();
+		content.add(backgroundToolbar, BorderLayout.NORTH);
+		
 		// Create the menu bar and add it to the frame.
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(makeFileMenu());
@@ -128,6 +132,27 @@ public class GuiDemo extends JFrame{
 		});
 		return menu;
 	}
+	
+	private JToolBar makeToolbar() {
+	    JToolBar toolbar = new JToolBar();
+	    
+	    // Add ChooseBackgroundAction actions to the toolbar
+	    toolbar.add(new ChooseBackgroundAction("Mandelbrot"));
+	    toolbar.add(new ChooseBackgroundAction("Earthrise"));
+	    toolbar.add(new ChooseBackgroundAction("Sunset"));
+	    toolbar.add(new ChooseBackgroundAction("Cloud"));
+	    toolbar.add(new ChooseBackgroundAction("Eagle_nebula"));
+	    
+	    // Add a separator between background actions and other actions
+	    toolbar.addSeparator();
+	    
+	    // Add newPictureAction and saveImageAction to the toolbar
+	    toolbar.add(newPictureAction);
+	    toolbar.add(saveImageAction);
+	    
+	    return toolbar;
+	}
+
 	
 	private AbstractAction newPictureAction = 
 		new AbstractAction("New", Util.iconFromResource("resources/action_icons/fileopen.png")) {
