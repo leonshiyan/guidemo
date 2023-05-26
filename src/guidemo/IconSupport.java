@@ -34,6 +34,17 @@ public class IconSupport {
 		}
 		actions.add(new NoIconAction());
 	}
+	/**
+     * Create and return a menu with the same functionality as the toolbar.
+     * All the Actions from the actions ArrayList are added to the menu.
+     */
+    public JMenu createMenu() {
+        JMenu menu = new JMenu("Stamper");
+        for (Action action : actions) {
+            menu.add(action);
+        }
+        return menu;
+    }
 	
 	/**
 	 * Return a toolbar containing buttons representing the images that can be added
