@@ -85,6 +85,7 @@ public class TextMenu extends JMenu {
 		add(bold);
 		addSeparator();
 		add(makeFontNameSubmenu());
+	    add(makeJustifyMenu()); 
 	}
 	
 	/**
@@ -161,6 +162,45 @@ public class TextMenu extends JMenu {
 		}
 		return menu;
 	}
-	
+	private JMenu makeJustifyMenu() {
+	    JMenu justifyMenu = new JMenu("Justify");
+
+	    ButtonGroup buttonGroup = new ButtonGroup();
+
+	    JRadioButtonMenuItem leftButton = new JRadioButtonMenuItem("Left");
+	    leftButton.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent evt) {
+	            panel.getTextItem().setJustify(TextItem.LEFT);
+	            panel.repaint();
+	        }
+	    });
+	    buttonGroup.add(leftButton);
+	    justifyMenu.add(leftButton);
+
+	    JRadioButtonMenuItem rightButton = new JRadioButtonMenuItem("Right");
+	    rightButton.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent evt) {
+	            panel.getTextItem().setJustify(TextItem.RIGHT);
+	            panel.repaint();
+	        }
+	    });
+	    buttonGroup.add(rightButton);
+	    justifyMenu.add(rightButton);
+
+	    JRadioButtonMenuItem centerButton = new JRadioButtonMenuItem("Center");
+	    centerButton.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent evt) {
+	            panel.getTextItem().setJustify(TextItem.CENTER);
+	            panel.repaint();
+	        }
+	    });
+	    buttonGroup.add(centerButton);
+	    justifyMenu.add(centerButton);
+
+	    // Select the "Left" radio button as default
+	    leftButton.setSelected(true);
+
+	    return justifyMenu;
+	}
 
 }
