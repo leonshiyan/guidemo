@@ -63,6 +63,25 @@ public class TextMenu extends JMenu {
 				}
 			}
 		});
+		
+		final JMenuItem lineHeight = new JMenuItem("Set Line Height...");
+		lineHeight.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent evt) {
+		        double currentLineHeight = panel.getTextItem().getLineHeightMultiplier();
+		        String input = JOptionPane.showInputDialog(panel, "Enter the line height multiplier:", currentLineHeight);
+		        if (input != null && input.trim().length() > 0) {
+		            try {
+		                double newLineHeight = Double.parseDouble(input.trim());
+		                panel.getTextItem().setLineHeightMultiplier(newLineHeight);
+		                panel.repaint();
+		            } catch (NumberFormatException e) {
+		                JOptionPane.showMessageDialog(panel, "Invalid input. Please enter a valid line height multiplier.");
+		            }
+		        }
+		    }
+		});
+		add(lineHeight);
+
 		italic = new JCheckBoxMenuItem("Italic");
 		italic.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
