@@ -207,13 +207,17 @@ public class GuiDemo extends JFrame{
      */
     private class ChooseBackgroundAction extends AbstractAction {
     	String text;
+    	private BufferedImage customIcon = Util.getBufferedImageResource("resources/action_icons/fileopen.png");
+
     	ChooseBackgroundAction(String text) {
     		super(text);
     		this.text = text;
-    		if (!text.equals("Custom...") && !text.equals("Color...")) {
-    			putValue(Action.SMALL_ICON, 
-    					Util.iconFromResource("resources/images/" + text.toLowerCase() + "_thumbnail.jpeg"));
-    		}
+    		// Check if it's the "Custom..." action
+            if (text.equals("Custom...")) {
+                putValue(Action.SMALL_ICON, Util.iconFromResource("resources/action_icons/fileopen.png"));
+            } else if (!text.equals("Color...")) { // Skip "Color..." action
+                putValue(Action.SMALL_ICON, Util.iconFromResource("resources/images/" + text.toLowerCase() + "_thumbnail.jpeg"));
+            }
     		if (text.equals("Color..."))
     			putValue(Action.SHORT_DESCRIPTION, "<html>Use a solid color for background<br>instead of an image.</html>");
     		else if (text.equals("Custom..."))
