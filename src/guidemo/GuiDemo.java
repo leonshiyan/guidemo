@@ -208,14 +208,16 @@ public class GuiDemo extends JFrame{
     private class ChooseBackgroundAction extends AbstractAction {
     	String text;
     	private BufferedImage customIcon = Util.getBufferedImageResource("resources/action_icons/fileopen.png");
-
+    	
     	ChooseBackgroundAction(String text) {
     		super(text);
     		this.text = text;
     		// Check if it's the "Custom..." action
             if (text.equals("Custom...")) {
                 putValue(Action.SMALL_ICON, Util.iconFromResource("resources/action_icons/fileopen.png"));
-            } else if (!text.equals("Color...")) { // Skip "Color..." action
+            } else if (text.equals("Color...")) { // "Color..." action
+                putValue(Action.SMALL_ICON, createColorIcon(Color.WHITE));
+            } else {
                 putValue(Action.SMALL_ICON, Util.iconFromResource("resources/images/" + text.toLowerCase() + "_thumbnail.jpeg"));
             }
     		if (text.equals("Color..."))
@@ -226,6 +228,27 @@ public class GuiDemo extends JFrame{
     			putValue(Action.SHORT_DESCRIPTION, "Use this image as the background.");
     			
     	}
+    	private ImageIcon createColorIcon(Color color) {
+    	    int iconSize = 32;
+    	    BufferedImage image = new BufferedImage(iconSize, iconSize, BufferedImage.TYPE_INT_RGB);
+    	    Graphics2D g2d = image.createGraphics();
+    	    
+    	    // Fill the entire image with dark gray
+    	    g2d.setColor(Color.DARK_GRAY);
+    	    g2d.fillRect(0, 0, iconSize, iconSize);
+    	    
+    	    // Fill a smaller square with the specified color
+    	    int squareSize = iconSize - 8;
+    	    int squareX = (iconSize - squareSize) / 2;
+    	    int squareY = (iconSize - squareSize) / 2;
+    	    g2d.setColor(color);
+    	    g2d.fillRect(squareX, squareY, squareSize, squareSize);
+    	    
+    	    g2d.dispose();
+    	    
+    	    return new ImageIcon(image);
+    	}
+
 		public void actionPerformed(ActionEvent evt) {
 			if (text.equals("Custom...")) {
 				File inputFile = fileChooser.getInputFile(drawPanel, "Select Background Image");
